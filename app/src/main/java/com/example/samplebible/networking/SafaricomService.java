@@ -1,11 +1,16 @@
 package com.example.samplebible.networking;
 
 import com.example.samplebible.pojos.BibleResponse;
+import com.example.samplebible.pojos.StkPushRequest;
+import com.example.samplebible.pojos.StkPushResponse;
 import com.example.samplebible.pojos.TokenResponse;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.Headers;
+import retrofit2.http.POST;
 
 public interface SafaricomService {
 
@@ -13,9 +18,7 @@ public interface SafaricomService {
     @GET("oauth/v1/generate?grant_type=client_credentials")
     Call<TokenResponse> getAccessToken();
 
-
-    @Headers("api-key: 97519447e1b0672ce68311f1c61d7c59")
-    @GET("mpesa/stkpush/v1/processrequest")
-    Call<BibleResponse> makeStkPush();
+    @POST("mpesa/stkpush/v1/processrequest")
+    Call<StkPushResponse> makeStkPush(@Header("Authorization") String authorization, @Body StkPushRequest stkPushRequest);
 
 }
